@@ -21,23 +21,41 @@ var server = http.createServer(function(request, response){
 
   console.log('有个傻子发请求过来啦！路径（带查询参数）为：' + pathWithQuery)
 
-  if(path === '/'){
+  if(path === '/index.html'){
     response.statusCode = 200;
     response.setHeader('Content-Type', 'text/html;charset=utf-8');
-    response.write(`
-    <!DOCTYPE html>
-    <head>
-    <link rel="stylesheet" href="/style">
-    </head>
-    <body>
-    <h1>This is HTTP Hello</h1>
-    </body>
-    `);
+    const string = fs.readFileSync('index.html')
+    response.write(string);
     response.end();
-  } else if(path === '/style'){
+  } else if(path === '/index1.html'){
     response.statusCode = 200;
-    response.setHeader('Content-Type', 'text/css;charset=utf-8');
-    response.write(`h1{color: red;}`);
+    response.setHeader('Content-Type', 'text/html;charset=utf-8');
+    response.write(fs.readFileSync('index1.html'));
+    response.end();
+  } else if(path === '/main.js'){
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/javascript;charset=utf-8');
+    response.write(fs.readFileSync('main.js'));
+    response.end();
+  } else if(path === '/index.xml'){
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/xml;charset=utf-8');
+    response.write(fs.readFileSync('index.xml'));
+    response.end();
+  } else if(path === '/main1.js'){
+    response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/javascript;charset=utf-8');
+    response.write(fs.readFileSync('main1.js'));
+    response.end();
+  }  else if(path === '/style.css'){
+    response.statusCode = 200;
+    response.setHeader('Content-Type','text/css;charset=utf-8')
+    response.write(fs.readFileSync('style.css'));
+    response.end();
+  } else if(path === '/main.json'){
+    response.statusCode = 200;
+    response.setHeader('Content-Type','text/json;charset=utf-8')
+    response.write(fs.readFileSync('main.json'));
     response.end();
   } else {
     response.statusCode = 404;
